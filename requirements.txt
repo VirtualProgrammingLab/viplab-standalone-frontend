@@ -1,0 +1,5 @@
+Flask==1.0.4
+cryptography==2.9.2
+PyJWT==1.7.1
+url64==0.0.2
+jwcrypto==0.7

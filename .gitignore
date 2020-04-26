@@ -1,0 +1,5 @@
+# Don't include key
+jwks.*.json
+
+# Ignore python byte-compile
+__pycache__
