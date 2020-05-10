@@ -4,10 +4,20 @@
 </head>
 <body>
   <h1>Hello User</h1>
-  <div><button type="button" id="submit">Submit</button> {{ digest }}</div>
+  <div><button type="button" id="submit" disabled="true">Submit</button> {{ digest }}</div>
   <span id="dataholder"  data-template='{{ data }}' data-token='{{ token }}'></span>
   <div>
     <textarea id="{{ partid }}" class="partcontent" rows=20 cols=120></textarea>
   </div>
+  <h2>Stdout</h2>
+  <div>
+    <textarea id="stdout" class="stdout" rows=20 cols=120></textarea>
+  </div>
+
+  <div>
+    <ul id="fileList">
+    </ul>
+  </div>
+  <script src="static/js/base64.js"></script>
   <script src="static/js/main.js"></script>
 </body>
