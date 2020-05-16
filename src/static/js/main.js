@@ -1,14 +1,16 @@
 let ws;
 let files;
+let template;
 
 document.addEventListener("DOMContentLoaded", function(){
-    document.querySelectorAll('.partcontent').forEach(function(partcontent){
-        partcontent.value = Base64.decode(JSON.parse(Base64.decode(document.querySelector('#dataholder').getAttribute('data-template')))['files'][0]['parts'][0]['content']);
-    });
-    let token = document.querySelector('#dataholder').getAttribute('data-token')
-    ws = new WebSocket("ws://localhost:8083/computations")
+	template = JSON.parse(Base64.decode(document.querySelector(
+			'#inputfiles').getAttribute('data-template')));
+	console.log(template);
+	template.files.forEach(inputfile => buildInputFile(inputfile)); 
+    let token = document.querySelector('#inputfiles').getAttribute('data-token');
+    ws = new WebSocket("ws://localhost:8083/computations");
     ws.onopen = () => {
-        ws.send(JSON.stringify({"type":"authenticate","content":{"jwt":token}}));
+    	ws.send(JSON.stringify({"type":"authenticate","content":{"jwt":token}}));
         document.getElementById("submit").disabled = false;
     };
     ws.onmessage = function(event) {
@@ -27,30 +29,96 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("submit").onclick = senddata;
 });
 
+function buildInputFile(inputfile) {
+    let filediv = document.createElement("div");
+    filediv.setAttribute('class','file');
+    let filenametag = document.createElement("div");
+    filenametag.innerHTML = inputfile.path;
+    filediv.appendChild(filenametag);
+    filediv.setAttribute('id', inputfile.identifier);
+    inputfile['parts'].forEach(part => {
+    	if ('invisible' != part.access) {
+	        let htmlElements = []
+	        
+	        let partid = document.createElement("div");
+	        partid.innerHTML = part.identifier;
+	        htmlElements.push(partid)
+	        
+	    	let textArea = document.createElement("textarea");
+	    	textArea.setAttribute('rows', 20);
+	    	textArea.setAttribute('cols', 120);
+
+	    	if('visible' == part.access) {
+	    		textArea.setAttribute('disabled', true)	    		
+		    	textArea.value = Base64.decode(part['content']);
+	    		htmlElements.push(textArea)
+	    	} else {
+		    	textArea.setAttribute('class', 'partcontent');
+		    	textArea.setAttribute('id', part.identifier);
+		    	if(part.access == 'modifiable') {
+			    	textArea.value = Base64.decode(part['content']);
+			    	htmlElements.push(textArea)
+		    	} else {
+			    	let templateArea = document.createElement("textarea");
+			    	templateArea.setAttribute('rows', 20);
+			    	templateArea.setAttribute('cols', 120);
+			    	templateArea.setAttribute('disabled', true)	    		
+			    	templateArea.value = Base64.decode(part['content']);
+			    	htmlElements.push(templateArea);
+		    		parameters = {}
+		    		textArea.setAttribute("rows",Object.keys(part.parameters).length);
+		    		Object.keys(part.parameters).forEach(parameter => {
+		    			parameters[parameter] = "";
+		    		});
+		    		
+		    		textArea.value = JSON.stringify(parameters);
+		    		htmlElements.push(textArea);
+		    	}
+	    	}
+	    	htmlElements.forEach(element => { 
+	    		filediv.appendChild(element);
+    		});
+   		}    		
+    });    
+    document.querySelector('#inputfiles').appendChild(filediv);
+}
+
+function uuid() {
+	function s4() {
+	    return Math.floor((1 + Math.random()) * 0x10000)
+	      .toString(16)
+	      .substring(1);
+	}
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+	    s4() + '-' + s4() + s4() + s4();
+}
+
 function senddata() { 
     document.getElementById("submit").disabled = true;
     task = {
         "type":"create-computation",
         "content":{
-            "template":document.querySelector('#dataholder').getAttribute('data-template'),
+            "template":document.querySelector('#inputfiles').getAttribute('data-template'),
             "task":{
-                "template":"cd39715e-55de-4563-bf8c-929d3d699953",
-                "identifier":"11483f23-95bf-424a-98a5-ee5868c85c3e",
-                "files": [
-                    {   
-                        "identifier":"9ce43170-c5e2-4eb2-87b9-013d3836527f",
-                        "parts": []
-                    }
-                ]
+                "template":template.identifier,
+                "identifier":uuid(),
+                "files": []
             }
             
         }
     };
-    document.querySelectorAll('.partcontent').forEach(function(partcontent){
-        //console.log(partcontent);
-        task['content']['task']['files'][0]['parts'].push({'identifier':partcontent.id, 'content':btoa(partcontent.value)});
+    document.querySelectorAll('.file').forEach(function(filediv){
+    	let file = { 'identifier': filediv.id, 'parts': []};
+    	filediv.querySelectorAll('.partcontent').forEach(function(partcontent){
+            //console.log(partcontent);
+    		file.parts.push({'identifier':partcontent.id, 'content':Base64.encode(partcontent.value)});
+    	});
+    	task.content.task.files.push(file)
     });
     document.querySelector('#stdout').value = '';
+    document.querySelector('#stderr').value = '';
+    document.getElementById("fileList").innerHTML = '';
+    files = new Map();
     ws.send(JSON.stringify(task));
     return false;
 }

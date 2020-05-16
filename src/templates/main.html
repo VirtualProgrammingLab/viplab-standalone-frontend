@@ -1,19 +1,31 @@
 <!doctype html>
 <head>
+<link rel="icon" href="data:,">
 <title>Hello from Flask</title>
 </head>
 <body>
   <h1>Hello User</h1>
-  <div><button type="button" id="submit" disabled="true">Submit</button> {{ digest }}</div>
-  <span id="dataholder"  data-template='{{ data }}' data-token='{{ token }}'></span>
+  I found the following templates in example folder:
   <div>
-    <textarea id="{{ partid }}" class="partcontent" rows=20 cols=120></textarea>
+    <ul id=templates">
+      {% for temp in templates %}
+      <a href="{{ url_for('explore_computation', filename=temp) }}">
+      <li>{{ temp }}</li>
+      {% endfor %}
+      </a>
+    </ul>
   </div>
+  <div><button type="button" id="submit" disabled="true">Submit</button> {{ digest }}</div>
+  <h2>InputFiles</h2>
+  <div id="inputfiles" data-template='{{ data }}' data-token='{{ token }}'></div>
   <h2>Stdout</h2>
   <div>
     <textarea id="stdout" class="stdout" rows=20 cols=120></textarea>
   </div>
-
+  <h2>Stderr</h2>
+  <div>
+    <textarea id="stderr" class="stderr" rows=20 cols=120></textarea>
+  </div>
   <div>
     <ul id="fileList">
     </ul>
