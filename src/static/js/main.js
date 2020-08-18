@@ -133,8 +133,8 @@ function displayResult(result) {
     if ("final" == result.result.status) {
         document.getElementById("submit").disabled = false;
     }
-    files = new Map();
-    result.result.files.forEach(file => {
+    artifacts = new Map();
+    result.result.artifacts.forEach(file => {
         var linode = document.createElement("li");
         var anode = document.createElement("a");
         anode.setAttribute('href', '#');
