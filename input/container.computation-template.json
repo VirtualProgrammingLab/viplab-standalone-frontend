@@ -1,20 +1,30 @@
 {
   "identifier": "cd39715e-55de-4563-bf8c-929d3d699953",
   "environment": "Container",
-  "files": [
-    {
-      "identifier": "9ce43170-c5e2-4eb2-87b9-013d3836527f",
-      "path": "main.m",
+  "files":   [
+    { "identifier": "f3fc4404-3529-4962-b252-47bc4ddd02a1",
+      "path": "params.input",
+      "metadata" :
+        { "syntaxHighlighting": "ini"
+        },
       "parts": [
         {
           "identifier": "5fa346f4-85e2-4e16-9cc6-11c82a7d3265",
-          "access": "modifiable",
-          "content": ""
-        }
-
-      ]
+          "access"    : "modifiable",
+            "metadata"  :
+              { "name"      : "params.input file"
+              },
+            "content"   : ""
+          }
+        ]
     }
   ],
-  "configuration": {
-  }
+  "configuration" :
+    { "resources.image"  : "name://git.iws.uni-stuttgart.de:4567/dumux-repositories/dumux-docker/viplab/test",
+      "resources.volume" : "/data/shared",
+      "resources.memory" : "1g",
+      "resources.numCPUs" : 1,
+      "running.entrypoint" : "/data/bin/run.sh",
+      "running.commandLineArguments" : "params.input"
+    }
 }
