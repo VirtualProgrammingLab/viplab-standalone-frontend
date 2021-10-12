@@ -1,0 +1,265 @@
+{ "identifier"  : "11483f23-95bf-424a-98a5-ee5868c85c3f", 
+  "version" : "3.0.0" ,
+  "metadata": 
+    { "displayName" : "Parameters Example",  
+      "description" : "This is an example"
+                                                     
+    },
+  "environment" : "C", 
+  "files" : 
+  [
+    { "identifier": "22483f42-95bf-984a-98a5-ee9485c85c3f", 
+      "path"      : "params.input",                              
+      "metadata"  : 
+        {  "syntaxHighlighting": "ini"                   
+        },
+      "parts" : 
+      [ 
+
+        {
+          "identifier": "part-contains-slider",
+          "access": "template",
+          "metadata": {
+            "name": "Parameter in part",
+            "emphasis": "low"
+          },
+          "parameters" : 
+          [
+            {
+              "mode" : "any",
+              "identifier" : "__sliderSingle__", 
+              "metadata" : {
+                "guiType" : "slider",
+                "name": "temperature",
+                "vertical": false
+              },
+              "default": [
+                10
+              ],
+              "min": 0,
+              "max": 500,
+              "step": 10,
+              "validation": "range"
+            }
+          ],
+          "content": "VGhpcyBpcyBhIFRleHQ6Ont7X19zbGlkZXJTaW5nbGVfX319OjpUaGlzIGlzIGEgVGV4dA=="
+        },
+        {
+          "identifier": "ceb051d8-b50c-4814-983a-b9d703cae0c6",
+          "access"    : "template",
+          "metadata"  :
+              { "name"      : "params.input file"
+              },
+          "parameters":
+          [
+            {
+              "mode" : "fixed",
+              "identifier" : "__checkbox__", 
+              "metadata" : {
+                "guiType": "checkbox",
+                "name": "options"
+              },
+              "options": [
+                {
+                  "value" : "verbose",
+                  "selected" : true
+                },
+                {
+                  "value" : "debug"
+                },
+                {
+                  "value" : "make_plot"
+                }
+              ],
+              "validation": "anyof"
+            }, 
+            {
+              "mode" : "fixed",
+              "identifier" : "__radioButton__", 
+              "metadata" : {
+                "guiType": "radio",
+                "name": "backend"
+              },
+              "options": [
+                {
+                  "value" : "debug"
+                },
+                {
+                  "value" : "serial",
+                  "selected" : true
+                },
+                {
+                  "value" : "hpc",
+                  "disabled" : true
+                },
+                {
+                  "value" : "test"
+                }
+              ],
+              "validation": "oneof"
+            },
+            {
+              "mode" : "fixed",
+              "identifier" : "__dropdownSingle__", 
+              "metadata" : {
+                "guiType": "dropdown",
+                "name": "model"
+              },
+              "options": [
+                {
+                  "value" : "Please choose one",
+                  "disabled" : true
+                },
+                {
+                  "value" : "1p",
+                  "selected" : true
+                },
+                {
+                  "value" : "1pnc"
+                },
+                {
+                  "value" : "1pncmin"
+                },
+                {
+                  "value" : "2p"
+                },
+                {
+                  "value" : "2p1c"
+                }
+              ],
+              "validation": "oneof"
+            }, 
+            {
+              "mode" : "fixed",
+              "identifier" : "__dropdownMultiple__", 
+              "metadata" : {
+                "guiType": "dropdown",
+                "name": "model"
+              },
+              "options": [
+                {
+                  "value" : "Please choose multiple",
+                  "disabled" : true
+                },
+                {
+                  "value" : "1p",
+                  "selected" : true
+                },
+                {
+                  "value" : "1pnc"
+                },
+                {
+                  "value" : "1pncmin"
+                },
+                {
+                  "value" : "2p", 
+                  "selected" : true
+                },
+                {
+                  "value" : "2p1c", 
+                  "disabled" : true
+                }
+              ], 
+              "validation": "anyof"
+            }, 
+            {
+              "mode" : "fixed",
+              "identifier" : "__toggle__", 
+              "metadata" : {
+                "guiType": "toggle",
+                "name": "options"
+              },
+              "options": [
+                {
+                  "value" : "verbose",
+                  "selected" : true
+                },
+                {
+                  "value" : "debug"
+                },
+                {
+                  "value" : "make_plot"
+                }
+              ], 
+              "validation": "anyof"
+            }, 
+            {
+              "mode" : "any",
+              "identifier" : "__sliderMultiple__", 
+              "metadata" : {
+                "guiType" : "slider",
+                "name": "temperature",
+                "vertical": true
+              },
+              "default": [
+                25,
+                50,
+                75
+              ],
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "validation": "range"
+            },
+            {
+              "mode" : "any",
+              "identifier" : "__inputTextWOMaxlangth__", 
+              "metadata" : {
+                "guiType" : "input_field",
+                "type": "text",
+                "name": "file_name"
+              },
+              "default" : [""],
+              "validation": "pattern"
+            },
+            {
+              "mode" : "any",
+              "identifier" : "__inputTextWMaxlength__", 
+              "metadata" : {
+                "guiType" : "input_field",
+                "type": "text",
+                "name": "file_name"
+              },
+              "maxlength": 200,
+              "default" : [""],
+              "validation": "pattern"
+            },
+            {
+              "mode" : "any",
+              "identifier" : "__inputNumber__", 
+              "metadata" : {
+                "guiType" : "input_field",
+                "type": "number",
+                "name": "time_delay"
+              },
+              "default": [10],
+              "min": 0,
+              "max": 500,
+              "step": 0.1,
+              "validation": "range"
+            },
+            {
+              "mode" : "any",
+              "identifier" : "__default__", 
+              "metadata" : {
+                "guiType" : "editor", 
+                "name": "code 1"
+              },
+              "default": ["I2luY2x1ZGUgPHN0ZGlvLmg-Cg"],
+              "validation": "pattern"
+            }
+          ],
+            "content"   : ""
+         }
+      ] 
+    }
+  ], 
+  "configuration" :
+    { "resources.image"  : "name",
+      "resources.volume" : "/data/shared",
+      "resources.memory" : "1g",
+      "resources.numCPUs" : 1,
+      "running.entrypoint" : "/data/bin/run.sh",
+      "running.commandLineArguments" : "params.input"
+    }
+}

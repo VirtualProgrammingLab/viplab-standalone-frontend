@@ -1,0 +1,80 @@
+{
+  "identifier": "11483f23-95bf-424a-98a5-ee5868c85c3e",
+  "version": "3.0.0",
+  "metadata": {
+    "displayName": "Aufgabe 1",
+    "description": "Schreiben Sie eine C-Funktion..."
+  },
+  "environment": "C",
+  "files": [
+    {
+      "identifier": "22483f42-95bf-984a-98a5-ee9485c85c3e",
+      "path": "code.c",
+      "metadata": {
+        "syntaxHighlighting": "C"
+      },
+      "parts": [
+        {
+          "identifier": "preamble",
+          "access": "visible",
+          "metadata": {
+            "name": "Info: source before your code.",
+            "emphasis": "low"
+          },
+          "content": "I2luY2x1ZGUgPHN0ZGlvLmg-Cg"
+        },
+        {
+          "identifier": "codeFromStudent",
+          "access": "modifiable",
+          "metadata": {
+            "name": "Fill in your code!",
+            "emphasis": "medium"
+          },
+          "content": "dm9pZCBiYXIoKSB7IC8qIFNjaHJlaWJlbiBTaWUgaGllciBDb2RlLCBkZXIgImJhciIgYXVzZ2lidC4gKi8KCn0K"
+        },
+        {
+          "identifier": "postscript",
+          "access": "visible",
+          "metadata": {
+            "name": "Info: source after your code calling bar() in it.",
+            "emphasis": "low"
+          },
+          "content": "aW50IG1haW4oKSB7IGJhcigpOyByZXR1cm4gMDsgfQ"
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "mode": "fixed",
+      "identifier": "__STEPWIDTH__",
+      "metadata": {
+        "guiType": "dropdown",
+        "name": "stepwidth"
+      },
+      "options": [
+        {
+          "value": "0.05",
+          "selected": true
+        },
+        {
+          "value": "0.5"
+        },
+        {
+          "value": "1"
+        }
+      ],
+      "validation": "onlyone"
+    }
+  ],
+  "configuration": {
+    "compiling.compiler": "gcc",
+    "compiling.flags": "-O2 -Wall",
+    "checking.sources": [
+      "codeFromStudent"
+    ],
+    "checking.forbiddenCalls": "system execve",
+    "linking.flags": "-lm",
+    "running.commandLineArguments": "--stepwidth {{ __STEPWIDTH__ }}"
+  }
+}
