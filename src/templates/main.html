@@ -3,11 +3,11 @@
 <link rel="icon" href="data:,">
 <title>Hello from Flask</title>
 </head>
-<body>
+<body data-wsapi='{{ wsapi }}'>
   <h1>Hello User</h1>
   I found the following templates in example folder:
   <div>
-    <ul id=templates">
+    <ul id="templates">
       {% for temp in templates %}
       <a href="{{ url_for('explore_computation', filename=temp) }}">
       <li>{{ temp }}</li>

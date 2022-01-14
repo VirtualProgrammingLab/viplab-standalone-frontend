@@ -5,7 +5,7 @@ import url64
 import hashlib
 import jwt
 import json
-import os.path
+import os
 import sys
 import glob
 
@@ -38,7 +38,8 @@ def explore_computation(filename):
     code_sha256 = hashlib.sha256(data_base64.encode('utf-8')).hexdigest()
     
     token = jwt.encode({'viplab.computation-template.digest': code_sha256, 'iss':'test'}, key, algorithm='RS512', headers={'kid': 'mykeyid'}).decode()
-    return render_template('main.html', templates=template_name_list, digest=code_sha256, token=token, data=data_base64)
+    wsapi = os.environ.get('WSAPI','ws://localhost:8080/computations')
+    return render_template('main.html', templates=template_name_list, digest=code_sha256, token=token, data=data_base64, wsapi=wsapi)
 
 if __name__ == '__main__':
     if os.path.exists('jwks.private.json'):

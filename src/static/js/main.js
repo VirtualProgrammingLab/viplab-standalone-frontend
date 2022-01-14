@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(template);
     template.files.forEach(inputfile => buildInputFile(inputfile));
     let token = document.querySelector('#inputfiles').getAttribute('data-token');
-    ws = new WebSocket("ws://localhost:8083/computations");
+    let wsapi = document.querySelector('body').getAttribute("data-wsapi");
+    ws = new WebSocket(wsapi);
     ws.onopen = () => {
         ws.send(JSON.stringify({ "type": "authenticate", "content": { "jwt": token } }));
         document.getElementById("submit").disabled = false;
