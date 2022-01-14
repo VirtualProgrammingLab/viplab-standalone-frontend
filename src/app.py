@@ -14,7 +14,7 @@ app = Flask(__name__, static_url_path='/static')
 @app.route('/')
 def main_page():
     # get all templates
-    template_list = glob.glob(os.path.join("input", "*.json"))    
+    template_list = sorted(glob.glob(os.path.join("input", "*.json")))
     return redirect(url_for("explore_computation", 
                             filename=os.path.basename(template_list[0])))
 
@@ -25,14 +25,15 @@ def explore_computation(filename):
     
     # get all templates
     template_list = glob.glob(os.path.join("input", "*.json"))
-    template_name_list = [os.path.basename(p) for p in template_list]
+    template_name_list = sorted([os.path.basename(p) for p in template_list])
     
     with open(os.path.join('input', filename),'r',encoding='utf-8') as f:
         template = json.load(f)
+    prefix = filename.split('.')[0]
     for computationfile in template['files']:
         for part in computationfile['parts']:
-            if os.path.exists('input/container.partcontent.%s.txt'%part['identifier']):
-                with open('input/container.partcontent.%s.txt'%part['identifier'],'r',encoding='utf-8') as input_file:
+            if os.path.exists('input/%s.%s.txt'%(prefix,part['identifier'])):
+                with open('input/%s.%s.txt'%(prefix,part['identifier']),'r',encoding='utf-8') as input_file:
                     part['content'] = url64.encode(input_file.read())
     data_base64=url64.encode(json.dumps(template))
     code_sha256 = hashlib.sha256(data_base64.encode('utf-8')).hexdigest()
