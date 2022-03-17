@@ -131,6 +131,8 @@ function displayComputation(computation) {
 function displayResult(result) {
     console.log(result)
     document.querySelector('#stdout').value += Base64.decode(result.result.output.stdout);
+    document.querySelector('#stderr').value += Base64.decode(result.result.output.stderr);
+
     if ("final" == result.result.status) {
         document.getElementById("submit").disabled = false;
     }
