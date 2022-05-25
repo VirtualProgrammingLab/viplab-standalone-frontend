@@ -1,5 +1,5 @@
 Flask==1.0.4
 cryptography==3.3.2
-PyJWT==1.7.1
+PyJWT==2.4.0
 url64==0.0.2
 jwcrypto==0.7
