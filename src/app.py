@@ -38,7 +38,7 @@ def explore_computation(filename):
     data_base64=url64.encode(json.dumps(template))
     code_sha256 = hashlib.sha256(data_base64.encode('utf-8')).hexdigest()
     
-    token = jwt.encode({'viplab.computation-template.digest': code_sha256, 'iss':'test'}, key, algorithm='RS512', headers={'kid': 'mykeyid'}).decode()
+    token = jwt.encode({'viplab.computation-template.digest': code_sha256, 'viplab.digest-replaceable':True, 'iss':'test'}, key, algorithm='RS512', headers={'kid': 'mykeyid'})
     wsapi = os.environ.get('WSAPI','ws://localhost:8080/computations')
     return render_template('main.html', templates=template_name_list, digest=code_sha256, token=token, data=data_base64, wsapi=wsapi)
 
