@@ -1,18 +1,21 @@
 <!doctype html>
 <head>
 <link rel="icon" href="data:,">
-<title>Hello from Flask</title>
+<title>Viplab Standalone Frontend</title>
 </head>
 <body data-wsapi='{{ wsapi }}'>
-  <h1>Hello User</h1>
+  <h2>Hello  explorer</h2>
   I found the following templates in example folder:
   <div>
     <ul id="templates">
       {% for temp in templates %}
-      <a href="{{ url_for('explore_computation', filename=temp) }}">
-      <li>{{ temp }}</li>
+      <li>{{ temp }}:
+        <a href="{{ url_for('explore_computation_simple', filename=temp) }}">
+          simple</a>
+        <a href="{{ url_for('explore_computation_vue', filename=temp) }}">
+          vue</a>
+      </li>
       {% endfor %}
-      </a>
     </ul>
   </div>
   <div><button type="button" id="submit" disabled="true">Submit</button> {{ digest }}</div>
@@ -30,6 +33,6 @@
     <ul id="fileList">
     </ul>
   </div>
-  <script src="static/js/base64.js"></script>
-  <script src="static/js/main.js"></script>
+  <script src="/static/simple/js/base64.js"></script>
+  <script src="/static/simple/js/main.js"></script>
 </body>

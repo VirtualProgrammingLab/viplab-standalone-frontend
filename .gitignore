@@ -1,5 +1,9 @@
 # Don't include key
 jwks.*.json
-
+# Ignore the vue-frontend being downloaded
+src/static/css/vue
+src/static/js/vue
+# Ignore config.json being created at startup
+src/static/config.json
 # Ignore python byte-compile
 __pycache__

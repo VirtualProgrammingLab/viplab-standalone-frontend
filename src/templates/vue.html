@@ -1,0 +1,12 @@
+<!doctype html>
+<head>
+ <link rel="icon" href="data:,">
+ <link rel="stylesheet" href="{{ url_for_static_frontend('css', 'chunk-vendors') }}">
+ <link rel="stylesheet" href="{{ url_for_static_frontend('css', 'app') }}">
+<title>Viplab Standalone Frontend</title>
+</head>
+<body data-template='{{ data }}' data-token='{{ token }}' data-wsapi='{{ wsapi }}'>
+  <div id="app"></div>
+  <script src="{{ url_for_static_frontend('js', 'chunk-vendors') }}"></script>
+  <script src="{{ url_for_static_frontend('js', 'app') }}"></script>
+</body>

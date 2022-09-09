@@ -1,0 +1,21 @@
+<!doctype html>
+<head>
+<link rel="icon" href="data:,">
+<title>Viplab Standalone Frontend</title>
+</head>
+<body data-wsapi='{{ wsapi }}'>
+  <h2>Hello  explorer</h2>
+  I found the following templates in example folder:
+  <div>
+    <ul id="templates">
+      {% for temp in templates %}
+      <li>{{ temp }}:
+        <a href="{{ url_for('explore_computation_simple', filename=temp) }}">
+          simple</a>
+        <a href="{{ url_for('explore_computation_vue', filename=temp) }}">
+          vue</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>

@@ -140,13 +140,24 @@ function displayResult(result) {
     result.result.artifacts.forEach(file => {
         var linode = document.createElement("li");
         var anode = document.createElement("a");
-        anode.setAttribute('href', '#');
-        anode.addEventListener("click", function() { return save(file.path, file.identifier, file.MIMEtype) });
-        var textnode = document.createTextNode(file.path);
-        anode.appendChild(textnode);
-        linode.appendChild(anode);
-        document.getElementById("fileList").appendChild(linode);
-        files[file.identifier] = Base64.decode(file.content);
+        if(file.type == "file") {
+            anode.setAttribute('href', '#');
+            anode.addEventListener("click", function() { return save(file.path, file.identifier, file.MIMEtype) });
+            var textnode = document.createTextNode(file.path);
+            anode.appendChild(textnode);
+            linode.appendChild(anode);
+            document.getElementById("fileList").appendChild(linode);
+            files[file.identifier] = Base64.decode(file.content);
+        }
+        if(file.type == "s3file") {
+            anode.setAttribute('href', file.url);
+            anode.addEventListener("click", function() { return save(file.path, file.identifier, file.MIMEtype) });
+            var textnode = document.createTextNode(file.path);
+            anode.appendChild(textnode);
+            linode.appendChild(anode);
+            document.getElementById("fileList").appendChild(linode);
+            files[file.identifier] = Base64.decode(file.content);
+        }
     });
 }
 
