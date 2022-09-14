@@ -4,8 +4,8 @@ ARG frontendversion
 
 RUN mkdir /unpack
 WORKDIR /unpack
-RUN wget "https://github.com/VirtualProgrammingLab/viplab-vue-frontend/releases/download/$frontendversion/$frontendversion-dist.zip" && \
-    unzip $frontendversion-dist.zip
+RUN wget "https://github.com/VirtualProgrammingLab/viplab-vue-frontend/releases/download/$frontendversion/dist.zip" && \
+    unzip dist.zip
 
 
 FROM python:3.6-alpine
@@ -27,8 +27,9 @@ RUN apk add --no-cache --virtual .build-deps  \
 COPY src app
 COPY input input
 
-COPY --from=unpacker /unpack/css/* app/css/vue/
-COPY --from=unpacker /unpack/js/* app/css/js/
+COPY --from=unpacker /unpack/viplab-standalone-frontend-vue/dist/css/* app/static/css/vue/
+COPY --from=unpacker /unpack/viplab-standalone-frontend-vue/dist/js/* app/static/js/vue/
+COPY --from=unpacker /unpack/viplab-standalone-frontend-vue/dist/*.js app/static/js/ace/
 
 EXPOSE 5000
 

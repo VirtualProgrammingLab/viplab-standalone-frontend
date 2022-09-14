@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, jsonify, url_for
+from flask import render_template, request, jsonify, url_for, redirect
 from jwcrypto import jwk
 import url64
 import hashlib
@@ -73,6 +73,11 @@ def explore_computation_vue(filename):
 def explore_computation_simple(filename):
     (data_base64, token, code_sha256) = prepare_computation(filename)
     return render_template('simple.html', templates=create_template_list(), digest=code_sha256, token=token, data=data_base64, wsapi=os.environ.get('WSAPI','ws://localhost:8080/computations'))
+
+@app.route('/<string:filename>')
+def redirect_static(filename):
+    if os.path.isfile(os.path.join(app.root_path, 'static', 'js', 'ace', filename)):
+        return redirect(url_for('static', filename='js/ace/%s'%filename))
 
 @app.route('/sign', methods=['POST'])
 def sign():
