@@ -52,7 +52,8 @@ def check_jwks_file():
         print('jwks.private.json not found')
         sys.exit(1)
     config = {"WEBSOCKET_API": os.environ.get("WSAPI", "ws://localhost/computations"),
-              "IS_STUDENT": os.environ.get("IS_STUDENT", True)}
+              "IS_STUDENT": os.environ.get("IS_STUDENT", True),
+              "ITK_PATH": os.environ.get("ITK_PATH", "../static/js/vue")}
     with open(os.path.join(app.root_path, "static", "config.json"), 'w') as f:
         json.dump(config, f)
 
