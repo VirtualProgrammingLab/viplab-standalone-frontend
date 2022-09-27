@@ -28,7 +28,7 @@ COPY src app
 COPY input input
 
 COPY --from=unpacker /unpack/viplab-standalone-frontend-vue/dist/css/* app/static/css/vue/
-COPY --from=unpacker /unpack/viplab-standalone-frontend-vue/dist/js/* app/static/js/vue/
+COPY --from=unpacker /unpack/viplab-standalone-frontend-vue/dist/js/ app/static/js/vue/
 COPY --from=unpacker /unpack/viplab-standalone-frontend-vue/dist/*.js app/static/js/ace/
 
 EXPOSE 5000

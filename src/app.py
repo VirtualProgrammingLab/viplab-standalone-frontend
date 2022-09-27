@@ -53,7 +53,7 @@ def check_jwks_file():
         sys.exit(1)
     config = {"WEBSOCKET_API": os.environ.get("WSAPI", "ws://localhost/computations"),
               "IS_STUDENT": os.environ.get("IS_STUDENT", True),
-              "ITK_PATH": os.environ.get("ITK_PATH", "../static/js/vue")}
+              "ITK_PATH": os.environ.get("ITK_PATH", "../static/js/vue/itk")}
     with open(os.path.join(app.root_path, "static", "config.json"), 'w') as f:
         json.dump(config, f)
 
@@ -79,6 +79,13 @@ def explore_computation_simple(filename):
 def redirect_static(filename):
     if os.path.isfile(os.path.join(app.root_path, 'static', 'js', 'ace', filename)):
         return redirect(url_for('static', filename='js/ace/%s'%filename))
+
+@app.route('/create')
+def create_template():
+    return render_template('teacher.html',
+                           digest='', token='',
+                           data='',
+                           wsapi=os.environ.get('WSAPI','ws://localhost:8080/computations'))
 
 @app.route('/sign', methods=['POST'])
 def sign():
