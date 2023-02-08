@@ -8,7 +8,7 @@ RUN wget "https://github.com/VirtualProgrammingLab/viplab-vue-frontend/releases/
     unzip dist.zip
 
 
-FROM python:3.6-alpine
+FROM python:3.10-alpine
 
 LABEL maintainer="pascal.seeland@tik.uni-stuttgart.de"
 
