@@ -46,17 +46,6 @@ def create_template_list():
     template_name_list = sorted([os.path.basename(p) for p in template_list])
     return template_name_list
 
-@app.before_first_request
-def check_jwks_file():
-    if not os.path.exists('jwks.private.json'):
-        print('jwks.private.json not found')
-        sys.exit(1)
-    config = {"WEBSOCKET_API": os.environ.get("WSAPI", "ws://localhost/computations"),
-              "IS_STUDENT": os.environ.get("IS_STUDENT", True),
-              "ITK_PATH": os.environ.get("ITK_PATH", "../static/js/vue/itk")}
-    with open(os.path.join(app.root_path, "static", "config.json"), 'w') as f:
-        json.dump(config, f)
-
 @app.route('/')
 def main_page():
     return render_template('filelist.html', templates=create_template_list())
@@ -99,6 +88,16 @@ def sign():
          'viplab.digest-replaceable': True, 'iss':'darus-connector'},
         key, algorithm='RS512', headers={'kid': 'mykeyid'})
     return jsonify({'token': token})
+
+with app.app_context():
+    if not os.path.exists('jwks.private.json'):
+        print('jwks.private.json not found')
+        sys.exit(1)
+    config = {"WEBSOCKET_API": os.environ.get("WSAPI", "ws://localhost/computations"),
+              "IS_STUDENT": os.environ.get("IS_STUDENT", True),
+              "ITK_PATH": os.environ.get("ITK_PATH", "../static/js/vue/itk")}
+    with open(os.path.join(app.root_path, "static", "config.json"), 'w') as f:
+        json.dump(config, f)
 
 if __name__ == '__main__':
     if os.path.exists('jwks.private.json'):
