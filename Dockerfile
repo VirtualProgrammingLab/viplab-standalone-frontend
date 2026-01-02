@@ -1,4 +1,4 @@
-FROM alpine:3.15 AS unpacker
+FROM alpine:3.23 AS unpacker
 
 ARG frontendversion
 
