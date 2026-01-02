@@ -33,7 +33,7 @@ COPY --from=unpacker /unpack/viplab-standalone-frontend-vue/dist/*.js app/static
 
 EXPOSE 5000
 
-ENV PYHTONPATH app
+ENV PYHTONPATH=app
 ENTRYPOINT [ "python" ]
 
 CMD [ "app/app.py" ]
